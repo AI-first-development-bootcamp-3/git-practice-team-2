@@ -51,13 +51,13 @@ export const todoService = {
   },
 
   update(id, updates) {
-    if (updates.status !== undefined && !VALID_STATUSES.includes(updates.status)) {
-      throw new Error(`Invalid status: ${updates.status}`);
-    }
-
     const todos = readTodos();
     const index = todos.findIndex(todo => todo.id === id);
     if (index === -1) return null;
+
+    if (updates.status !== undefined && !VALID_STATUSES.includes(updates.status)) {
+      throw new Error(`Invalid status: ${updates.status}`);
+    }
 
     todos[index] = {
       ...todos[index],

@@ -23,11 +23,16 @@ export default async function todosRoutes(fastify, options) {
 
   // POST /api/todos - Create new todo
   fastify.post('/', async (request, reply) => {
-    const { title } = request.body;
+    const { title, status } = request.body;
     if (!title || !title.trim()) {
       return reply.status(400).send({ error: 'Title is required' });
     }
-    const todo = todoService.create({ title: title.trim() });
+    let todo;
+    try {
+      todo = todoService.create({ title: title.trim(), status });
+    } catch (error) {
+      return reply.status(400).send({ error: error.message });
+    }
     return reply.status(201).send(todo);
   });
 
