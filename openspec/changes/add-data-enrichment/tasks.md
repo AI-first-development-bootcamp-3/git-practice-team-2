@@ -24,11 +24,11 @@ Categorized by side: groups 1–3 are Backend (Dev 5), groups 4–6 are Frontend
 
 ## 4. Frontend (Dev 6) — Priority
 
-- [ ] 4.1 Create `client/src/constants.js` with priority levels (label, color, icon per level)
-- [ ] 4.2 `AddTodo.jsx`: priority selector defaulting to `medium`
-- [ ] 4.3 `api.js`: change `create(title)` to `create({ title, priority })` — announce signature change on merge
-- [ ] 4.4 `TodoItem.jsx`: priority badge (color/icon from constants) + selector to change priority via `update()`
-- [ ] 4.5 `App.css`: badge styles appended under `/* Feature 4: priority */`
+- [x] 4.1 Create `client/src/constants.js` with priority levels (label, color, icon per level)
+- [x] 4.2 `AddTodo.jsx`: priority selector defaulting to `medium`
+- [x] 4.3 `api.js`: change `create(title)` to `create({ title, priority })` — announce signature change on merge
+- [x] 4.4 `TodoItem.jsx`: priority badge (color/icon from constants) + selector to change priority via `update()`
+- [x] 4.5 `App.css`: badge styles appended under `/* Feature 4: priority */`
 - [ ] 4.6 Verify: create at each level, badge colors correct, priority change survives refresh. Merge
 
 ## 5. Frontend (Dev 6) — Due Date

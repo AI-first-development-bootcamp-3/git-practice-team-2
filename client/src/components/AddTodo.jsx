@@ -1,13 +1,16 @@
 import React, { useState } from 'react';
+import { PRIORITY_LEVELS, PRIORITY_OPTIONS } from '../constants';
 
 function AddTodo({ onAdd }) {
   const [title, setTitle] = useState('');
+  const [priority, setPriority] = useState('medium');
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (title.trim()) {
-      onAdd(title.trim());
+      onAdd({ title: title.trim(), priority });
       setTitle('');
+      setPriority('medium');
     }
   };
 
@@ -20,6 +23,15 @@ function AddTodo({ onAdd }) {
         placeholder="What needs to be done?"
         className="add-input"
       />
+      <select
+        value={priority}
+        onChange={(e) => setPriority(e.target.value)}
+        className="priority-select"
+      >
+        {PRIORITY_OPTIONS.map(p => (
+          <option key={p} value={p}>{PRIORITY_LEVELS[p].label}</option>
+        ))}
+      </select>
       <button type="submit" className="add-btn" disabled={!title.trim()}>
         Add
       </button>

@@ -26,9 +26,9 @@ function App() {
     }
   };
 
-  const handleAdd = async (title) => {
+  const handleAdd = async ({ title, priority, dueDate, tags }) => {
     try {
-      const newTodo = await api.todos.create(title);
+      const newTodo = await api.todos.create({ title, priority, dueDate, tags });
       setTodos([...todos, newTodo]);
     } catch (err) {
       setError(err.message);
@@ -40,6 +40,15 @@ function App() {
       const todo = todos.find(t => t.id === id);
       const newStatus = todo.status === 'done' ? 'todo' : 'done';
       const updated = await api.todos.update(id, { status: newStatus });
+      setTodos(todos.map(t => t.id === id ? updated : t));
+    } catch (err) {
+      setError(err.message);
+    }
+  };
+
+  const handleUpdate = async (id, updates) => {
+    try {
+      const updated = await api.todos.update(id, updates);
       setTodos(todos.map(t => t.id === id ? updated : t));
     } catch (err) {
       setError(err.message);
@@ -78,6 +87,7 @@ function App() {
             todos={todos}
             onToggle={handleToggle}
             onDelete={handleDelete}
+            onUpdate={handleUpdate}
           />
         )}
       </main>
