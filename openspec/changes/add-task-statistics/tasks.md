@@ -13,32 +13,32 @@
 
 ## 3. Client: Dependencies and API Service [Client]
 
-- [ ] 3.1 Add `react-router-dom` to `client/package.json` and install
-- [ ] 3.2 Add `api.todos.getStats()` to `client/src/services/api.js`, calling `GET /api/todos/stats` (can be built now against the DTO in design.md — `{ total, byStatus: { todo, 'in-progress', review, done } }` — without waiting on the server track)
+- [x] 3.1 Add `react-router-dom` to `client/package.json` and install
+- [x] 3.2 Add `api.todos.getStats()` to `client/src/services/api.js`, calling `GET /api/todos/stats` (can be built now against the DTO in design.md — `{ total, byStatus: { todo, 'in-progress', review, done } }` — without waiting on the server track)
 
 ## 4. Client: Routing and Navigation [Client]
 
-- [ ] 4.1 Wrap the app in `BrowserRouter` in `client/src/main.jsx` (or `App.jsx`)
-- [ ] 4.2 Split `App.jsx` into a router with two routes: `/` (existing todos view) and `/stats` (new statistics view)
-- [ ] 4.3 Add a nav link from the Todos page to `/stats`
-- [ ] 4.4 Add a nav link from the Statistics page back to `/`
+- [x] 4.1 Wrap the app in `BrowserRouter` in `client/src/main.jsx` (or `App.jsx`)
+- [x] 4.2 Split `App.jsx` into a router with two routes: `/` (existing todos view) and `/stats` (new statistics view)
+- [x] 4.3 Add a nav link from the Todos page to `/stats`
+- [x] 4.4 Add a nav link from the Statistics page back to `/`
 
 ## 5. Client: Status Selector [Client]
 
-- [ ] 5.1 Replace the toggle button in `client/src/components/TodoItem.jsx` with a status selector (`<select>`) listing all 4 statuses
-- [ ] 5.2 Replace the `onToggle` prop/handler with `onStatusChange(id, newStatus)` in `TodoItem.jsx` and its parent(s)
-- [ ] 5.3 Update `App.jsx`'s `handleToggle` to a `handleStatusChange(id, newStatus)` that calls `api.todos.update(id, { status: newStatus })`
+- [x] 5.1 Replace the toggle button in `client/src/components/TodoItem.jsx` with a status selector (`<select>`) listing all 4 statuses
+- [x] 5.2 Replace the `onToggle` prop/handler with `onStatusChange(id, newStatus)` in `TodoItem.jsx` and its parent(s)
+- [x] 5.3 Update `App.jsx`'s `handleToggle` to a `handleStatusChange(id, newStatus)` that calls `api.todos.update(id, { status: newStatus })`
 
 ## 6. Client: Grouped Todo List [Client]
 
-- [ ] 6.1 Update `client/src/components/TodoList.jsx` to group todos into 4 sections: To Do, In Progress, Review, Done
-- [ ] 6.2 Keep per-section item counts and the existing empty-state message
+- [x] 6.1 Update `client/src/components/TodoList.jsx` to group todos into 4 sections: To Do, In Progress, Review, Done
+- [x] 6.2 Keep per-section item counts and the existing empty-state message
 
 ## 7. Client: Statistics Page [Client]
 
-- [ ] 7.1 Create `client/src/components/Stats.jsx`: fetches `api.todos.getStats()` on mount, shows loading/error states
-- [ ] 7.2 Render total task count and a count per status (todo, in-progress, review, done), including statuses at 0
-- [ ] 7.3 Add minimal styling consistent with the existing app (reuse `App.css` patterns)
+- [x] 7.1 Create `client/src/components/Stats.jsx`: fetches `api.todos.getStats()` on mount, shows loading/error states
+- [x] 7.2 Render total task count and a count per status (todo, in-progress, review, done), including statuses at 0
+- [x] 7.3 Add minimal styling consistent with the existing app (reuse `App.css` patterns)
 
 ## 8. Verification [Both, after merging server + client branches]
 
