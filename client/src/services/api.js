@@ -23,6 +23,8 @@ export const api = {
 
     getById: (id) => fetchApi(`/todos/${id}`),
 
+    getStats: () => fetchApi('/todos/stats'),
+
     create: (title) => fetchApi('/todos', {
       method: 'POST',
       body: JSON.stringify({ title }),
