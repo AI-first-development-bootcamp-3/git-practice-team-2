@@ -7,6 +7,11 @@ export default async function todosRoutes(fastify, options) {
     return todoService.getAll();
   });
 
+  // GET /api/todos/stats - Get aggregate task counts
+  fastify.get('/stats', async (request, reply) => {
+    return todoService.getStats();
+  });
+
   // GET /api/todos/:id - Get single todo
   fastify.get('/:id', async (request, reply) => {
     const todo = todoService.getById(request.params.id);
@@ -28,7 +33,12 @@ export default async function todosRoutes(fastify, options) {
 
   // PUT /api/todos/:id - Update todo
   fastify.put('/:id', async (request, reply) => {
-    const todo = todoService.update(request.params.id, request.body);
+    let todo;
+    try {
+      todo = todoService.update(request.params.id, request.body);
+    } catch (error) {
+      return reply.status(400).send({ error: error.message });
+    }
     if (!todo) {
       return reply.status(404).send({ error: 'Todo not found' });
     }

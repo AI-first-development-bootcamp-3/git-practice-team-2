@@ -2,14 +2,14 @@
 
 ## 1. Server: Status Model [Server]
 
-- [ ] 1.1 Define the valid status list (`todo`, `in-progress`, `review`, `done`) as a shared constant in `server/src/services/todoService.js`
-- [ ] 1.2 Add status validation to `create`/`update` in `todoService.js`, rejecting values outside the valid list
-- [ ] 1.3 Return a 400 error with message from the `POST` and `PUT` routes in `server/src/routes/todos.js` when status validation fails
+- [x] 1.1 Define the valid status list (`todo`, `in-progress`, `review`, `done`) as a shared constant in `server/src/services/todoService.js`
+- [x] 1.2 Add status validation to `create`/`update` in `todoService.js`, rejecting values outside the valid list
+- [x] 1.3 Return a 400 error with message from the `POST` and `PUT` routes in `server/src/routes/todos.js` when status validation fails
 
 ## 2. Server: Statistics Endpoint [Server]
 
-- [ ] 2.1 Add `todoService.getStats()` that reads all todos and returns `{ total, byStatus: { todo, 'in-progress', review, done } }`, zero-filling any status with no todos
-- [ ] 2.2 Add `GET /api/todos/stats` route in `server/src/routes/todos.js` (register before `/:id` to avoid route collision), returning the DTO from `getStats()`
+- [x] 2.1 Add `todoService.getStats()` that reads all todos and returns `{ total, byStatus: { todo, 'in-progress', review, done } }`, zero-filling any status with no todos
+- [x] 2.2 Add `GET /api/todos/stats` route in `server/src/routes/todos.js` (register before `/:id` to avoid route collision), returning the DTO from `getStats()`
 
 ## 3. Client: Dependencies and API Service [Client]
 
