@@ -12,9 +12,9 @@ Categorized by side: groups 1–3 are Backend (Dev 5), groups 4–6 are Frontend
 
 ## 2. Backend (Dev 5) — Due Date
 
-- [ ] 2.1 `todoService.js`: store `dueDate` in `create()` (null when absent)
-- [ ] 2.2 `routes/todos.js`: POST/PUT validate `dueDate` is a `YYYY-MM-DD` string or null, 400 otherwise
-- [ ] 2.3 Verify: create with/without date, invalid format → 400, legacy records load with null. Merge + announce
+- [x] 2.1 `todoService.js`: store `dueDate` in `create()` (null when absent)
+- [x] 2.2 `routes/todos.js`: POST/PUT validate `dueDate` is a `YYYY-MM-DD` string or null, 400 otherwise
+- [x] 2.3 Verify: create with/without date, invalid format → 400, legacy records load with null. Merge + announce
 
 ## 3. Backend (Dev 5) — Tags
 

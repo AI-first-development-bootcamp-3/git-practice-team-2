@@ -6,7 +6,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const DATA_FILE = join(__dirname, '../data/todos.json');
 
-const ENRICHMENT_DEFAULTS = { priority: 'medium' };
+const ENRICHMENT_DEFAULTS = { priority: 'medium', dueDate: null };
 
 function readTodos() {
   try {
@@ -38,6 +38,7 @@ export const todoService = {
       title: todoData.title,
       status: 'todo',
       priority: todoData.priority ?? 'medium',
+      dueDate: todoData.dueDate ?? null,
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString()
     };

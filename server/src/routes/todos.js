@@ -1,12 +1,17 @@
 import { todoService } from '../services/todoService.js';
 
 const PRIORITIES = ['low', 'medium', 'high'];
+const DUE_DATE_FORMAT = /^\d{4}-\d{2}-\d{2}$/;
 
 // Validates enrichment fields when present.
 // Returns an error message, or null when the body is valid.
 function validateEnrichmentFields(body) {
   if (body.priority !== undefined && !PRIORITIES.includes(body.priority)) {
     return `Priority must be one of: ${PRIORITIES.join(', ')}`;
+  }
+  if (body.dueDate !== undefined && body.dueDate !== null &&
+      !(typeof body.dueDate === 'string' && DUE_DATE_FORMAT.test(body.dueDate))) {
+    return 'dueDate must be a YYYY-MM-DD string or null';
   }
   return null;
 }
@@ -29,7 +34,7 @@ export default async function todosRoutes(fastify, options) {
 
   // POST /api/todos - Create new todo
   fastify.post('/', async (request, reply) => {
-    const { title, priority } = request.body;
+    const { title, priority, dueDate } = request.body;
     if (!title || !title.trim()) {
       return reply.status(400).send({ error: 'Title is required' });
     }
@@ -37,7 +42,7 @@ export default async function todosRoutes(fastify, options) {
     if (error) {
       return reply.status(400).send({ error });
     }
-    const todo = todoService.create({ title: title.trim(), priority });
+    const todo = todoService.create({ title: title.trim(), priority, dueDate });
     return reply.status(201).send(todo);
   });
 
