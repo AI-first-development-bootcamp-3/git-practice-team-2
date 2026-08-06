@@ -33,9 +33,9 @@ Categorized by side: groups 1–3 are Backend (Dev 5), groups 4–6 are Frontend
 
 ## 5. Frontend (Dev 6) — Due Date
 
-- [ ] 5.1 `AddTodo.jsx`: optional `<input type="date">`, included in the create payload
-- [ ] 5.2 `TodoItem.jsx`: show due date when set; overdue styling when `dueDate < today` and status ≠ done
-- [ ] 5.3 `App.css`: due-date/overdue styles under `/* Feature 6: due date */`
+- [x] 5.1 `AddTodo.jsx`: optional `<input type="date">`, included in the create payload
+- [x] 5.2 `TodoItem.jsx`: show due date when set; overdue styling when `dueDate < today` and status ≠ done
+- [x] 5.3 `App.css`: due-date/overdue styles under `/* Feature 6: due date */`
 - [ ] 5.4 Verify: yesterday's date shows overdue, done tasks never show overdue, no date still works. Merge
 
 ## 6. Frontend (Dev 6) — Tags

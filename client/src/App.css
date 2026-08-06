@@ -246,3 +246,33 @@ body {
 .todo-item:hover .priority-select-inline {
   opacity: 1;
 }
+
+/* Feature 6: due date */
+.due-date-input {
+  padding: 8px 12px;
+  font-size: 14px;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  outline: none;
+  cursor: pointer;
+}
+
+.due-date-input:focus {
+  border-color: #4361ee;
+}
+
+.due-date {
+  font-size: 12px;
+  color: #666;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.due-date-overdue {
+  color: #dc2626;
+  font-weight: 600;
+}
+
+.todo-item.overdue {
+  border-left: 3px solid #dc2626;
+}

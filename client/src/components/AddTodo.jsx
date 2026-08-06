@@ -4,13 +4,15 @@ import { PRIORITY_LEVELS, PRIORITY_OPTIONS } from '../constants';
 function AddTodo({ onAdd }) {
   const [title, setTitle] = useState('');
   const [priority, setPriority] = useState('medium');
+  const [dueDate, setDueDate] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (title.trim()) {
-      onAdd({ title: title.trim(), priority });
+      onAdd({ title: title.trim(), priority, dueDate: dueDate || null });
       setTitle('');
       setPriority('medium');
+      setDueDate('');
     }
   };
 
@@ -32,6 +34,12 @@ function AddTodo({ onAdd }) {
           <option key={p} value={p}>{PRIORITY_LEVELS[p].label}</option>
         ))}
       </select>
+      <input
+        type="date"
+        value={dueDate}
+        onChange={(e) => setDueDate(e.target.value)}
+        className="due-date-input"
+      />
       <button type="submit" className="add-btn" disabled={!title.trim()}>
         Add
       </button>

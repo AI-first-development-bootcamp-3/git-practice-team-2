@@ -3,9 +3,11 @@ import { PRIORITY_LEVELS, PRIORITY_OPTIONS } from '../constants';
 
 function TodoItem({ todo, onToggle, onDelete, onUpdate }) {
   const pri = PRIORITY_LEVELS[todo.priority] || PRIORITY_LEVELS.medium;
+  const today = new Date().toISOString().slice(0, 10);
+  const isOverdue = todo.dueDate && todo.dueDate < today && todo.status !== 'done';
 
   return (
-    <div className={`todo-item ${todo.status === 'done' ? 'done' : ''}`}>
+    <div className={`todo-item ${todo.status === 'done' ? 'done' : ''} ${isOverdue ? 'overdue' : ''}`}>
       <button
         className="toggle-btn"
         onClick={() => onToggle(todo.id)}
@@ -23,6 +25,12 @@ function TodoItem({ todo, onToggle, onDelete, onUpdate }) {
       </span>
 
       <span className="todo-title">{todo.title}</span>
+
+      {todo.dueDate && (
+        <span className={`due-date ${isOverdue ? 'due-date-overdue' : ''}`}>
+          {todo.dueDate}
+        </span>
+      )}
 
       <select
         className="priority-select-inline"
