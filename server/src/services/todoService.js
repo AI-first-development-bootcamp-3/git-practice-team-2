@@ -76,5 +76,16 @@ export const todoService = {
     todos.splice(index, 1);
     writeTodos(todos);
     return true;
+  },
+
+  getStats() {
+    const todos = readTodos();
+    const byStatus = Object.fromEntries(VALID_STATUSES.map(status => [status, 0]));
+    for (const todo of todos) {
+      if (byStatus[todo.status] !== undefined) {
+        byStatus[todo.status]++;
+      }
+    }
+    return { total: todos.length, byStatus };
   }
 };
