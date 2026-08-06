@@ -29,14 +29,14 @@ Categorized by side: groups 1–3 are Backend (Dev 5), groups 4–6 are Frontend
 - [x] 4.3 `api.js`: change `create(title)` to `create({ title, priority })` — announce signature change on merge
 - [x] 4.4 `TodoItem.jsx`: priority badge (color/icon from constants) + selector to change priority via `update()`
 - [x] 4.5 `App.css`: badge styles appended under `/* Feature 4: priority */`
-- [ ] 4.6 Verify: create at each level, badge colors correct, priority change survives refresh. Merge
+- [x] 4.6 Verify: create at each level, badge colors correct, priority change survives refresh. Merge
 
 ## 5. Frontend (Dev 6) — Due Date
 
 - [x] 5.1 `AddTodo.jsx`: optional `<input type="date">`, included in the create payload
 - [x] 5.2 `TodoItem.jsx`: show due date when set; overdue styling when `dueDate < today` and status ≠ done
 - [x] 5.3 `App.css`: due-date/overdue styles under `/* Feature 6: due date */`
-- [ ] 5.4 Verify: yesterday's date shows overdue, done tasks never show overdue, no date still works. Merge
+- [x] 5.4 Verify: yesterday's date shows overdue, done tasks never show overdue, no date still works. Merge
 
 ## 6. Frontend (Dev 6) — Tags
 
@@ -45,10 +45,10 @@ Categorized by side: groups 1–3 are Backend (Dev 5), groups 4–6 are Frontend
 - [x] 6.3 `TodoItem.jsx`: render colored chips; add/remove tags on an existing todo via `update()`
 - [x] 6.4 `App.jsx`: clicking a chip filters the list to that tag, with visible active-filter indication and a clear action
 - [x] 6.5 `App.css`: chip styles under `/* Feature 10: tags */`
-- [ ] 6.6 Verify: multiple tags per task, same name = same color everywhere, filter applies and clears. Merge
+- [x] 6.6 Verify: multiple tags per task, same name = same color everywhere, filter applies and clears. Merge
 
 ## 7. Integration (both devs)
 
-- [ ] 7.1 After each phase: integrate front against real backend (drop mock), verify together, pull main before push
+- [x] 7.1 After each phase: integrate front against real backend (drop mock), verify together, pull main before push
 - [ ] 7.2 Hand off to team 1: badge + chips on their board card component (do not edit their files)
-- [ ] 7.3 Final walkthrough: create task with priority + due date + tags → edit each → filter by tag → everything survives refresh
+- [x] 7.3 Final walkthrough: create task with priority + due date + tags → edit each → filter by tag → everything survives refresh
