@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { Routes, Route, Link } from 'react-router-dom';
 import { api } from '../services/api';
 import TodoList from './TodoList';
 import AddTodo from './AddTodo';
-import Stats from './Stats';
 import '../App.css';
 
-function TodosPage() {
+function App() {
   const [todos, setTodos] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -37,10 +35,12 @@ function TodosPage() {
     }
   };
 
-  const handleStatusChange = async (id, newStatus) => {
+  const handleToggle = async (id) => {
     try {
+      const todo = todos.find(t => t.id === id);
+      const newStatus = todo.status === 'done' ? 'todo' : 'done';
       const updated = await api.todos.update(id, { status: newStatus });
-      setTodos(todos.map((t) => (t.id === id ? updated : t)));
+      setTodos(todos.map(t => t.id === id ? updated : t));
     } catch (err) {
       setError(err.message);
     }
@@ -49,7 +49,7 @@ function TodosPage() {
   const handleDelete = async (id) => {
     try {
       await api.todos.delete(id);
-      setTodos(todos.filter((t) => t.id !== id));
+      setTodos(todos.filter(t => t.id !== id));
     } catch (err) {
       setError(err.message);
     }
@@ -59,11 +59,6 @@ function TodosPage() {
     <div className="app">
       <header className="header">
         <h1>Todo App</h1>
-        <nav className="nav">
-          <Link to="/stats" className="nav-link">
-            Statistics →
-          </Link>
-        </nav>
       </header>
 
       <main className="main">
@@ -81,21 +76,12 @@ function TodosPage() {
         ) : (
           <TodoList
             todos={todos}
-            onStatusChange={handleStatusChange}
+            onToggle={handleToggle}
             onDelete={handleDelete}
           />
         )}
       </main>
     </div>
-  );
-}
-
-function App() {
-  return (
-    <Routes>
-      <Route path="/" element={<TodosPage />} />
-      <Route path="/stats" element={<Stats />} />
-    </Routes>
   );
 }
 
