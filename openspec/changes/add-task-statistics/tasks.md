@@ -4,7 +4,7 @@
 
 - [x] 1.1 Define the valid status list (`todo`, `in-progress`, `review`, `done`) as a shared constant in `server/src/services/todoService.js`
 - [x] 1.2 Add status validation to `create`/`update` in `todoService.js`, rejecting values outside the valid list
-- [ ] 1.3 Return a 400 error with message from the `POST` and `PUT` routes in `server/src/routes/todos.js` when status validation fails
+- [x] 1.3 Return a 400 error with message from the `POST` and `PUT` routes in `server/src/routes/todos.js` when status validation fails
 
 ## 2. Server: Statistics Endpoint [Server]
 
