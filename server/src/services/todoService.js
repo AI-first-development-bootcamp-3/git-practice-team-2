@@ -6,6 +6,8 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const DATA_FILE = join(__dirname, '../data/todos.json');
 
+export const VALID_STATUSES = ['todo', 'in-progress', 'review', 'done'];
+
 function readTodos() {
   try {
     const data = readFileSync(DATA_FILE, 'utf-8');
