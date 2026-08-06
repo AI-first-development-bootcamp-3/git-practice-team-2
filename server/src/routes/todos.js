@@ -1,5 +1,28 @@
 import { todoService } from '../services/todoService.js';
 
+const PRIORITIES = ['low', 'medium', 'high'];
+const DUE_DATE_FORMAT = /^\d{4}-\d{2}-\d{2}$/;
+
+// Validates enrichment fields when present.
+// Returns an error message, or null when the body is valid.
+function validateEnrichmentFields(body) {
+  if (body.priority !== undefined && !PRIORITIES.includes(body.priority)) {
+    return `Priority must be one of: ${PRIORITIES.join(', ')}`;
+  }
+  if (body.dueDate !== undefined && body.dueDate !== null &&
+      !(typeof body.dueDate === 'string' && DUE_DATE_FORMAT.test(body.dueDate))) {
+    return 'dueDate must be a YYYY-MM-DD string or null';
+  }
+  if (body.tags !== undefined) {
+    if (!Array.isArray(body.tags) ||
+        body.tags.some(tag => typeof tag !== 'string' || !tag.trim())) {
+      return 'tags must be an array of non-empty strings';
+    }
+    body.tags = [...new Set(body.tags.map(tag => tag.trim()))];
+  }
+  return null;
+}
+
 export default async function todosRoutes(fastify, options) {
 
   // GET /api/todos - Get all todos
@@ -18,16 +41,29 @@ export default async function todosRoutes(fastify, options) {
 
   // POST /api/todos - Create new todo
   fastify.post('/', async (request, reply) => {
-    const { title } = request.body;
+    const { title, priority, dueDate } = request.body;
     if (!title || !title.trim()) {
       return reply.status(400).send({ error: 'Title is required' });
     }
-    const todo = todoService.create({ title: title.trim() });
+    const error = validateEnrichmentFields(request.body);
+    if (error) {
+      return reply.status(400).send({ error });
+    }
+    const todo = todoService.create({
+      title: title.trim(),
+      priority,
+      dueDate,
+      tags: request.body.tags
+    });
     return reply.status(201).send(todo);
   });
 
   // PUT /api/todos/:id - Update todo
   fastify.put('/:id', async (request, reply) => {
+    const error = validateEnrichmentFields(request.body);
+    if (error) {
+      return reply.status(400).send({ error });
+    }
     const todo = todoService.update(request.params.id, request.body);
     if (!todo) {
       return reply.status(404).send({ error: 'Todo not found' });

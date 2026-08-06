@@ -8,6 +8,7 @@ function App() {
   const [todos, setTodos] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [filterTag, setFilterTag] = useState(null);
 
   useEffect(() => {
     loadTodos();
@@ -26,9 +27,9 @@ function App() {
     }
   };
 
-  const handleAdd = async (title) => {
+  const handleAdd = async ({ title, priority, dueDate, tags }) => {
     try {
-      const newTodo = await api.todos.create(title);
+      const newTodo = await api.todos.create({ title, priority, dueDate, tags });
       setTodos([...todos, newTodo]);
     } catch (err) {
       setError(err.message);
@@ -40,6 +41,15 @@ function App() {
       const todo = todos.find(t => t.id === id);
       const newStatus = todo.status === 'done' ? 'todo' : 'done';
       const updated = await api.todos.update(id, { status: newStatus });
+      setTodos(todos.map(t => t.id === id ? updated : t));
+    } catch (err) {
+      setError(err.message);
+    }
+  };
+
+  const handleUpdate = async (id, updates) => {
+    try {
+      const updated = await api.todos.update(id, updates);
       setTodos(todos.map(t => t.id === id ? updated : t));
     } catch (err) {
       setError(err.message);
@@ -71,13 +81,22 @@ function App() {
           </div>
         )}
 
+        {filterTag && (
+          <div className="active-filter">
+            Filtering by: <strong>{filterTag}</strong>
+            <button onClick={() => setFilterTag(null)} className="clear-filter-btn">Clear</button>
+          </div>
+        )}
+
         {loading ? (
           <div className="loading">Loading...</div>
         ) : (
           <TodoList
-            todos={todos}
+            todos={filterTag ? todos.filter(t => (t.tags || []).includes(filterTag)) : todos}
             onToggle={handleToggle}
             onDelete={handleDelete}
+            onUpdate={handleUpdate}
+            onTagClick={(tag) => setFilterTag(tag)}
           />
         )}
       </main>

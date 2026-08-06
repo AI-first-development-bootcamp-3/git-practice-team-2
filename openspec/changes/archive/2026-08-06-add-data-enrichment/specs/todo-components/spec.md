@@ -1,37 +1,4 @@
-# todo-components Specification
-
-## Purpose
-TBD - created by archiving change add-todo-components. Update Purpose after archive.
-## Requirements
-### Requirement: App Component
-The App component SHALL manage todo state and coordinate child components.
-
-#### Scenario: Initial load
-- **WHEN** app mounts
-- **THEN** todos are fetched from API and displayed
-
-#### Scenario: Loading state
-- **WHEN** todos are being fetched
-- **THEN** loading indicator is shown
-
-#### Scenario: Error display
-- **WHEN** API error occurs
-- **THEN** error message is displayed with dismiss button
-
-### Requirement: TodoList Component
-The TodoList component SHALL display todos grouped by status.
-
-#### Scenario: Empty state
-- **WHEN** no todos exist
-- **THEN** message "No todos yet. Add one above!" is shown
-
-#### Scenario: Grouped display
-- **WHEN** todos exist
-- **THEN** they are grouped into "To Do" and "Done" sections
-
-#### Scenario: Section counts
-- **WHEN** sections are displayed
-- **THEN** each section header shows item count
+## MODIFIED Requirements
 
 ### Requirement: TodoItem Component
 The TodoItem component SHALL display a single todo with its enrichment metadata and actions.
@@ -99,6 +66,8 @@ The AddTodo component SHALL provide a form to create new todos with optional pri
 - **WHEN** input is empty
 - **THEN** add button is disabled
 
+## ADDED Requirements
+
 ### Requirement: Tag Filtering
 The task list SHALL support filtering by a tag selected from any task's chips.
 
@@ -109,19 +78,3 @@ The task list SHALL support filtering by a tag selected from any task's chips.
 #### Scenario: Clear filter
 - **WHEN** the user clears the active tag filter
 - **THEN** all todos are shown again
-
-### Requirement: Visual Design
-The UI SHALL follow a clean, minimal design with consistent styling.
-
-#### Scenario: Brand header
-- **WHEN** app is displayed
-- **THEN** header has blue background (#4361ee) with title
-
-#### Scenario: Interactive feedback
-- **WHEN** user hovers over todo item
-- **THEN** shadow increases and delete button appears
-
-#### Scenario: Responsive layout
-- **WHEN** app is viewed
-- **THEN** content is centered with max-width of 600px
-

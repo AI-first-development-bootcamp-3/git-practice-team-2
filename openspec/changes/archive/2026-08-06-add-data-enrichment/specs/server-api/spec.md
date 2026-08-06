@@ -1,25 +1,4 @@
-# server-api Specification
-
-## Purpose
-TBD - created by archiving change add-server-api-routes. Update Purpose after archive.
-## Requirements
-### Requirement: List Todos Endpoint
-The API SHALL provide an endpoint to list all todos.
-
-#### Scenario: Get all todos
-- **WHEN** GET /api/todos is called
-- **THEN** all todos are returned as JSON array
-
-### Requirement: Get Single Todo Endpoint
-The API SHALL provide an endpoint to get a single todo by ID.
-
-#### Scenario: Get existing todo
-- **WHEN** GET /api/todos/:id is called with valid ID
-- **THEN** the todo is returned as JSON
-
-#### Scenario: Get non-existent todo
-- **WHEN** GET /api/todos/:id is called with invalid ID
-- **THEN** 404 status with error message is returned
+## MODIFIED Requirements
 
 ### Requirement: Create Todo Endpoint
 The API SHALL provide an endpoint to create a new todo, accepting optional priority, dueDate, and tags.
@@ -70,15 +49,3 @@ The API SHALL provide an endpoint to update an existing todo, validating priorit
 #### Scenario: Update non-existent todo
 - **WHEN** PUT /api/todos/:id is called with invalid ID
 - **THEN** 404 status with error message is returned
-
-### Requirement: Delete Todo Endpoint
-The API SHALL provide an endpoint to delete a todo.
-
-#### Scenario: Delete existing todo
-- **WHEN** DELETE /api/todos/:id is called with valid ID
-- **THEN** the todo is deleted and success response returned
-
-#### Scenario: Delete non-existent todo
-- **WHEN** DELETE /api/todos/:id is called with invalid ID
-- **THEN** 404 status with error message is returned
-
