@@ -13,6 +13,13 @@ function validateEnrichmentFields(body) {
       !(typeof body.dueDate === 'string' && DUE_DATE_FORMAT.test(body.dueDate))) {
     return 'dueDate must be a YYYY-MM-DD string or null';
   }
+  if (body.tags !== undefined) {
+    if (!Array.isArray(body.tags) ||
+        body.tags.some(tag => typeof tag !== 'string' || !tag.trim())) {
+      return 'tags must be an array of non-empty strings';
+    }
+    body.tags = [...new Set(body.tags.map(tag => tag.trim()))];
+  }
   return null;
 }
 
@@ -42,7 +49,12 @@ export default async function todosRoutes(fastify, options) {
     if (error) {
       return reply.status(400).send({ error });
     }
-    const todo = todoService.create({ title: title.trim(), priority, dueDate });
+    const todo = todoService.create({
+      title: title.trim(),
+      priority,
+      dueDate,
+      tags: request.body.tags
+    });
     return reply.status(201).send(todo);
   });
 

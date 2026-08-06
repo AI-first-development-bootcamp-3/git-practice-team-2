@@ -18,9 +18,9 @@ Categorized by side: groups 1–3 are Backend (Dev 5), groups 4–6 are Frontend
 
 ## 3. Backend (Dev 5) — Tags
 
-- [ ] 3.1 `todoService.js`: store `tags` in `create()`, defaulting to `[]`
-- [ ] 3.2 `routes/todos.js`: POST/PUT validate tags is an array of non-empty strings; trim and dedupe before storing; 400 otherwise
-- [ ] 3.3 Verify: create with/without tags, duplicates collapse, `[""]` → 400, legacy records load with `[]`. Merge + announce
+- [x] 3.1 `todoService.js`: store `tags` in `create()`, defaulting to `[]`
+- [x] 3.2 `routes/todos.js`: POST/PUT validate tags is an array of non-empty strings; trim and dedupe before storing; 400 otherwise
+- [x] 3.3 Verify: create with/without tags, duplicates collapse, `[""]` → 400, legacy records load with `[]`. Merge + announce
 
 ## 4. Frontend (Dev 6) — Priority
 
