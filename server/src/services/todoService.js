@@ -32,11 +32,16 @@ export const todoService = {
   },
 
   create(todoData) {
+    const status = todoData.status ?? 'todo';
+    if (!VALID_STATUSES.includes(status)) {
+      throw new Error(`Invalid status: ${status}`);
+    }
+
     const todos = readTodos();
     const newTodo = {
       id: crypto.randomUUID(),
       title: todoData.title,
-      status: 'todo',
+      status,
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString()
     };
@@ -46,6 +51,10 @@ export const todoService = {
   },
 
   update(id, updates) {
+    if (updates.status !== undefined && !VALID_STATUSES.includes(updates.status)) {
+      throw new Error(`Invalid status: ${updates.status}`);
+    }
+
     const todos = readTodos();
     const index = todos.findIndex(todo => todo.id === id);
     if (index === -1) return null;
