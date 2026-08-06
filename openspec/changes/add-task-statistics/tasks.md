@@ -9,7 +9,7 @@
 ## 2. Server: Statistics Endpoint [Server]
 
 - [x] 2.1 Add `todoService.getStats()` that reads all todos and returns `{ total, byStatus: { todo, 'in-progress', review, done } }`, zero-filling any status with no todos
-- [ ] 2.2 Add `GET /api/todos/stats` route in `server/src/routes/todos.js` (register before `/:id` to avoid route collision), returning the DTO from `getStats()`
+- [x] 2.2 Add `GET /api/todos/stats` route in `server/src/routes/todos.js` (register before `/:id` to avoid route collision), returning the DTO from `getStats()`
 
 ## 3. Client: Dependencies and API Service [Client]
 
