@@ -40,11 +40,11 @@ Categorized by side: groups 1–3 are Backend (Dev 5), groups 4–6 are Frontend
 
 ## 6. Frontend (Dev 6) — Tags
 
-- [ ] 6.1 `constants.js`: tag color derivation — name hashed into a fixed 8–10 color palette
-- [ ] 6.2 `AddTodo.jsx`: chip input (Enter adds, X removes), tags included in the create payload
-- [ ] 6.3 `TodoItem.jsx`: render colored chips; add/remove tags on an existing todo via `update()`
-- [ ] 6.4 `App.jsx`: clicking a chip filters the list to that tag, with visible active-filter indication and a clear action
-- [ ] 6.5 `App.css`: chip styles under `/* Feature 10: tags */`
+- [x] 6.1 `constants.js`: tag color derivation — name hashed into a fixed 8–10 color palette
+- [x] 6.2 `AddTodo.jsx`: chip input (Enter adds, X removes), tags included in the create payload
+- [x] 6.3 `TodoItem.jsx`: render colored chips; add/remove tags on an existing todo via `update()`
+- [x] 6.4 `App.jsx`: clicking a chip filters the list to that tag, with visible active-filter indication and a clear action
+- [x] 6.5 `App.css`: chip styles under `/* Feature 10: tags */`
 - [ ] 6.6 Verify: multiple tags per task, same name = same color everywhere, filter applies and clears. Merge
 
 ## 7. Integration (both devs)

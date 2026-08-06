@@ -8,6 +8,7 @@ function App() {
   const [todos, setTodos] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [filterTag, setFilterTag] = useState(null);
 
   useEffect(() => {
     loadTodos();
@@ -80,14 +81,22 @@ function App() {
           </div>
         )}
 
+        {filterTag && (
+          <div className="active-filter">
+            Filtering by: <strong>{filterTag}</strong>
+            <button onClick={() => setFilterTag(null)} className="clear-filter-btn">Clear</button>
+          </div>
+        )}
+
         {loading ? (
           <div className="loading">Loading...</div>
         ) : (
           <TodoList
-            todos={todos}
+            todos={filterTag ? todos.filter(t => (t.tags || []).includes(filterTag)) : todos}
             onToggle={handleToggle}
             onDelete={handleDelete}
             onUpdate={handleUpdate}
+            onTagClick={(tag) => setFilterTag(tag)}
           />
         )}
       </main>
