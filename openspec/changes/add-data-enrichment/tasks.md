@@ -4,11 +4,11 @@ Categorized by side: groups 1–3 are Backend (Dev 5), groups 4–6 are Frontend
 
 ## 1. Backend (Dev 5) — Priority
 
-- [ ] 1.1 `todoService.js`: store `priority` in `create()`, defaulting to `'medium'` when not provided
-- [ ] 1.2 `todoService.js`: apply defaults for legacy records on read (`priority: 'medium'`, `dueDate: null`, `tags: []`)
-- [ ] 1.3 `routes/todos.js`: POST rejects priority outside `low|medium|high` with 400 listing allowed values
-- [ ] 1.4 `routes/todos.js`: PUT applies the same priority validation when the field is present
-- [ ] 1.5 Verify: POST without priority → `medium`; POST/PUT with `high` persists to `todos.json`; PUT with `"urgent"` → 400; legacy records load with `medium`. Merge + announce
+- [x] 1.1 `todoService.js`: store `priority` in `create()`, defaulting to `'medium'` when not provided
+- [x] 1.2 `todoService.js`: apply defaults for legacy records on read (`priority: 'medium'`, `dueDate: null`, `tags: []`)
+- [x] 1.3 `routes/todos.js`: POST rejects priority outside `low|medium|high` with 400 listing allowed values
+- [x] 1.4 `routes/todos.js`: PUT applies the same priority validation when the field is present
+- [x] 1.5 Verify: POST without priority → `medium`; POST/PUT with `high` persists to `todos.json`; PUT with `"urgent"` → 400; legacy records load with `medium`. Merge + announce
 
 ## 2. Backend (Dev 5) — Due Date
 
