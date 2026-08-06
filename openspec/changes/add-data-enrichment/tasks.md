@@ -1,8 +1,8 @@
 # Tasks
 
-Split by developer. Dev 5 = backend, Dev 6 = frontend — the two tracks run in parallel (dev 6 uses mock data until the matching backend group merges). Phase order per track: priority → due date → tags.
+Categorized by side: groups 1–3 are Backend (Dev 5), groups 4–6 are Frontend (Dev 6), group 7 is joint. The two sides run in parallel — Dev 6 works against mock data until the matching backend group merges. Phase order within each side: priority → due date → tags.
 
-## 1. Dev 5 — Backend: Priority
+## 1. Backend (Dev 5) — Priority
 
 - [ ] 1.1 `todoService.js`: store `priority` in `create()`, defaulting to `'medium'` when not provided
 - [ ] 1.2 `todoService.js`: apply defaults for legacy records on read (`priority: 'medium'`, `dueDate: null`, `tags: []`)
@@ -10,35 +10,35 @@ Split by developer. Dev 5 = backend, Dev 6 = frontend — the two tracks run in 
 - [ ] 1.4 `routes/todos.js`: PUT applies the same priority validation when the field is present
 - [ ] 1.5 Verify: POST without priority → `medium`; POST/PUT with `high` persists to `todos.json`; PUT with `"urgent"` → 400; legacy records load with `medium`. Merge + announce
 
-## 2. Dev 6 — Frontend: Priority
+## 2. Backend (Dev 5) — Due Date
 
-- [ ] 2.1 Create `client/src/constants.js` with priority levels (label, color, icon per level)
-- [ ] 2.2 `AddTodo.jsx`: priority selector defaulting to `medium`
-- [ ] 2.3 `api.js`: change `create(title)` to `create({ title, priority })` — announce signature change on merge
-- [ ] 2.4 `TodoItem.jsx`: priority badge (color/icon from constants) + selector to change priority via `update()`
-- [ ] 2.5 `App.css`: badge styles appended under `/* Feature 4: priority */`
-- [ ] 2.6 Verify: create at each level, badge colors correct, priority change survives refresh. Merge
+- [ ] 2.1 `todoService.js`: store `dueDate` in `create()` (null when absent)
+- [ ] 2.2 `routes/todos.js`: POST/PUT validate `dueDate` is a `YYYY-MM-DD` string or null, 400 otherwise
+- [ ] 2.3 Verify: create with/without date, invalid format → 400, legacy records load with null. Merge + announce
 
-## 3. Dev 5 — Backend: Due Date
+## 3. Backend (Dev 5) — Tags
 
-- [ ] 3.1 `todoService.js`: store `dueDate` in `create()` (null when absent)
-- [ ] 3.2 `routes/todos.js`: POST/PUT validate `dueDate` is a `YYYY-MM-DD` string or null, 400 otherwise
-- [ ] 3.3 Verify: create with/without date, invalid format → 400, legacy records load with null. Merge + announce
+- [ ] 3.1 `todoService.js`: store `tags` in `create()`, defaulting to `[]`
+- [ ] 3.2 `routes/todos.js`: POST/PUT validate tags is an array of non-empty strings; trim and dedupe before storing; 400 otherwise
+- [ ] 3.3 Verify: create with/without tags, duplicates collapse, `[""]` → 400, legacy records load with `[]`. Merge + announce
 
-## 4. Dev 6 — Frontend: Due Date
+## 4. Frontend (Dev 6) — Priority
 
-- [ ] 4.1 `AddTodo.jsx`: optional `<input type="date">`, included in the create payload
-- [ ] 4.2 `TodoItem.jsx`: show due date when set; overdue styling when `dueDate < today` and status ≠ done
-- [ ] 4.3 `App.css`: due-date/overdue styles under `/* Feature 6: due date */`
-- [ ] 4.4 Verify: yesterday's date shows overdue, done tasks never show overdue, no date still works. Merge
+- [ ] 4.1 Create `client/src/constants.js` with priority levels (label, color, icon per level)
+- [ ] 4.2 `AddTodo.jsx`: priority selector defaulting to `medium`
+- [ ] 4.3 `api.js`: change `create(title)` to `create({ title, priority })` — announce signature change on merge
+- [ ] 4.4 `TodoItem.jsx`: priority badge (color/icon from constants) + selector to change priority via `update()`
+- [ ] 4.5 `App.css`: badge styles appended under `/* Feature 4: priority */`
+- [ ] 4.6 Verify: create at each level, badge colors correct, priority change survives refresh. Merge
 
-## 5. Dev 5 — Backend: Tags
+## 5. Frontend (Dev 6) — Due Date
 
-- [ ] 5.1 `todoService.js`: store `tags` in `create()`, defaulting to `[]`
-- [ ] 5.2 `routes/todos.js`: POST/PUT validate tags is an array of non-empty strings; trim and dedupe before storing; 400 otherwise
-- [ ] 5.3 Verify: create with/without tags, duplicates collapse, `[""]` → 400, legacy records load with `[]`. Merge + announce
+- [ ] 5.1 `AddTodo.jsx`: optional `<input type="date">`, included in the create payload
+- [ ] 5.2 `TodoItem.jsx`: show due date when set; overdue styling when `dueDate < today` and status ≠ done
+- [ ] 5.3 `App.css`: due-date/overdue styles under `/* Feature 6: due date */`
+- [ ] 5.4 Verify: yesterday's date shows overdue, done tasks never show overdue, no date still works. Merge
 
-## 6. Dev 6 — Frontend: Tags
+## 6. Frontend (Dev 6) — Tags
 
 - [ ] 6.1 `constants.js`: tag color derivation — name hashed into a fixed 8–10 color palette
 - [ ] 6.2 `AddTodo.jsx`: chip input (Enter adds, X removes), tags included in the create payload
