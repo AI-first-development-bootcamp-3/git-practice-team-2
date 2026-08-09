@@ -36,5 +36,5 @@ so# Tasks: resolve-pr5-conflicts
 
 ## 6. Push gate
 
-- [ ] 6.1 Show the user `git log --oneline origin/enrichment-backend..HEAD` (all new commits) and wait for explicit approval before pushing
-- [ ] 6.2 Push `enrichment-backend`, confirm PR #5 reports mergeable, request re-review from NadavMantsur (rollback after push: `git revert -m 1 <merge-commit>`)
+- [x] 6.1 Show the user `git log --oneline origin/enrichment-backend..HEAD` (all new commits) and wait for explicit approval before pushing
+- [x] 6.2 Push `enrichment-backend`, confirm PR #5 reports mergeable, request re-review from NadavMantsur (rollback after push: `git revert -m 1 <merge-commit>`)
