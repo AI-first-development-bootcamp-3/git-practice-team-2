@@ -8,6 +8,8 @@ const DATA_FILE = join(__dirname, '../data/todos.json');
 
 const ENRICHMENT_DEFAULTS = { priority: 'medium', dueDate: null, tags: [] };
 
+export const VALID_STATUSES = ['todo', 'in-progress', 'review', 'done'];
+
 function readTodos() {
   try {
     const data = readFileSync(DATA_FILE, 'utf-8');
@@ -32,11 +34,16 @@ export const todoService = {
   },
 
   create(todoData) {
+    const status = todoData.status ?? 'todo';
+    if (!VALID_STATUSES.includes(status)) {
+      throw new Error(`Invalid status: ${status}`);
+    }
+
     const todos = readTodos();
     const newTodo = {
       id: crypto.randomUUID(),
       title: todoData.title,
-      status: 'todo',
+      status,
       priority: todoData.priority ?? 'medium',
       dueDate: todoData.dueDate ?? null,
       tags: todoData.tags ?? [],
@@ -52,6 +59,10 @@ export const todoService = {
     const todos = readTodos();
     const index = todos.findIndex(todo => todo.id === id);
     if (index === -1) return null;
+
+    if (updates.status !== undefined && !VALID_STATUSES.includes(updates.status)) {
+      throw new Error(`Invalid status: ${updates.status}`);
+    }
 
     todos[index] = {
       ...todos[index],
@@ -70,5 +81,16 @@ export const todoService = {
     todos.splice(index, 1);
     writeTodos(todos);
     return true;
+  },
+
+  getStats() {
+    const todos = readTodos();
+    const byStatus = Object.fromEntries(VALID_STATUSES.map(status => [status, 0]));
+    for (const todo of todos) {
+      if (byStatus[todo.status] !== undefined) {
+        byStatus[todo.status]++;
+      }
+    }
+    return { total: todos.length, byStatus };
   }
 };

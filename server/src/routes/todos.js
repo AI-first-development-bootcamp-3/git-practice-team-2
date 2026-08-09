@@ -30,6 +30,11 @@ export default async function todosRoutes(fastify, options) {
     return todoService.getAll();
   });
 
+  // GET /api/todos/stats - Get aggregate task counts
+  fastify.get('/stats', async (request, reply) => {
+    return todoService.getStats();
+  });
+
   // GET /api/todos/:id - Get single todo
   fastify.get('/:id', async (request, reply) => {
     const todo = todoService.getById(request.params.id);
@@ -41,30 +46,44 @@ export default async function todosRoutes(fastify, options) {
 
   // POST /api/todos - Create new todo
   fastify.post('/', async (request, reply) => {
-    const { title, priority, dueDate } = request.body;
+    const { title, status, priority, dueDate } = request.body;
     if (!title || !title.trim()) {
       return reply.status(400).send({ error: 'Title is required' });
     }
-    const error = validateEnrichmentFields(request.body);
-    if (error) {
-      return reply.status(400).send({ error });
+    const validationError = validateEnrichmentFields(request.body);
+    if (validationError) {
+      return reply.status(400).send({ error: validationError });
     }
-    const todo = todoService.create({
-      title: title.trim(),
-      priority,
-      dueDate,
-      tags: request.body.tags
-    });
+    let todo;
+    try {
+      todo = todoService.create({
+        title: title.trim(),
+        status,
+        priority,
+        dueDate,
+        tags: request.body.tags
+      });
+    } catch (error) {
+      return reply.status(400).send({ error: error.message });
+    }
     return reply.status(201).send(todo);
   });
 
   // PUT /api/todos/:id - Update todo
   fastify.put('/:id', async (request, reply) => {
-    const error = validateEnrichmentFields(request.body);
-    if (error) {
-      return reply.status(400).send({ error });
+    if (!todoService.getById(request.params.id)) {
+      return reply.status(404).send({ error: 'Todo not found' });
     }
-    const todo = todoService.update(request.params.id, request.body);
+    const validationError = validateEnrichmentFields(request.body);
+    if (validationError) {
+      return reply.status(400).send({ error: validationError });
+    }
+    let todo;
+    try {
+      todo = todoService.update(request.params.id, request.body);
+    } catch (error) {
+      return reply.status(400).send({ error: error.message });
+    }
     if (!todo) {
       return reply.status(404).send({ error: 'Todo not found' });
     }

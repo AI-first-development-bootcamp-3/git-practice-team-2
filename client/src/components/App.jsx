@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
+import { Routes, Route, Link } from 'react-router-dom';
 import { api } from '../services/api';
 import TodoList from './TodoList';
 import AddTodo from './AddTodo';
+import Stats from './Stats';
 import '../App.css';
 
-function App() {
+function TodosPage() {
   const [todos, setTodos] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -36,12 +38,10 @@ function App() {
     }
   };
 
-  const handleToggle = async (id) => {
+  const handleStatusChange = async (id, newStatus) => {
     try {
-      const todo = todos.find(t => t.id === id);
-      const newStatus = todo.status === 'done' ? 'todo' : 'done';
       const updated = await api.todos.update(id, { status: newStatus });
-      setTodos(todos.map(t => t.id === id ? updated : t));
+      setTodos(todos.map((t) => (t.id === id ? updated : t)));
     } catch (err) {
       setError(err.message);
     }
@@ -59,7 +59,7 @@ function App() {
   const handleDelete = async (id) => {
     try {
       await api.todos.delete(id);
-      setTodos(todos.filter(t => t.id !== id));
+      setTodos(todos.filter((t) => t.id !== id));
     } catch (err) {
       setError(err.message);
     }
@@ -69,6 +69,11 @@ function App() {
     <div className="app">
       <header className="header">
         <h1>Todo App</h1>
+        <nav className="nav">
+          <Link to="/stats" className="nav-link">
+            Statistics →
+          </Link>
+        </nav>
       </header>
 
       <main className="main">
@@ -93,7 +98,7 @@ function App() {
         ) : (
           <TodoList
             todos={filterTag ? todos.filter(t => (t.tags || []).includes(filterTag)) : todos}
-            onToggle={handleToggle}
+            onStatusChange={handleStatusChange}
             onDelete={handleDelete}
             onUpdate={handleUpdate}
             onTagClick={(tag) => setFilterTag(tag)}
@@ -101,6 +106,15 @@ function App() {
         )}
       </main>
     </div>
+  );
+}
+
+function App() {
+  return (
+    <Routes>
+      <Route path="/" element={<TodosPage />} />
+      <Route path="/stats" element={<Stats />} />
+    </Routes>
   );
 }
 

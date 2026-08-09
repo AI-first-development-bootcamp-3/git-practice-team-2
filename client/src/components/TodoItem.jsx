@@ -1,7 +1,14 @@
 import React, { useState } from 'react';
 import { PRIORITY_LEVELS, PRIORITY_OPTIONS, getTagColor } from '../constants';
 
-function TodoItem({ todo, onToggle, onDelete, onUpdate, onTagClick }) {
+const STATUSES = [
+  { value: 'todo', label: 'To Do' },
+  { value: 'in-progress', label: 'In Progress' },
+  { value: 'review', label: 'Review' },
+  { value: 'done', label: 'Done' },
+];
+
+function TodoItem({ todo, onStatusChange, onDelete, onUpdate, onTagClick }) {
   const pri = PRIORITY_LEVELS[todo.priority] || PRIORITY_LEVELS.medium;
   const today = new Date().toISOString().slice(0, 10);
   const isOverdue = todo.dueDate && todo.dueDate < today && todo.status !== 'done';
@@ -9,13 +16,18 @@ function TodoItem({ todo, onToggle, onDelete, onUpdate, onTagClick }) {
 
   return (
     <div className={`todo-item ${todo.status === 'done' ? 'done' : ''} ${isOverdue ? 'overdue' : ''}`}>
-      <button
-        className="toggle-btn"
-        onClick={() => onToggle(todo.id)}
-        aria-label={todo.status === 'done' ? 'Mark as pending' : 'Mark as done'}
+      <select
+        className="status-select"
+        value={todo.status}
+        onChange={(e) => onStatusChange(todo.id, e.target.value)}
+        aria-label="Change status"
       >
-        {todo.status === 'done' ? '✓' : '○'}
-      </button>
+        {STATUSES.map(({ value, label }) => (
+          <option key={value} value={value}>
+            {label}
+          </option>
+        ))}
+      </select>
 
       <span
         className="priority-badge"
