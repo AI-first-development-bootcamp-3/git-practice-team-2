@@ -1,22 +1,4 @@
-# todo-components Specification
-
-## Purpose
-TBD - created by archiving change add-todo-components. Update Purpose after archive.
-## Requirements
-### Requirement: App Component
-The App component SHALL manage todo state and coordinate child components.
-
-#### Scenario: Initial load
-- **WHEN** app mounts
-- **THEN** todos are fetched from API and displayed
-
-#### Scenario: Loading state
-- **WHEN** todos are being fetched
-- **THEN** loading indicator is shown
-
-#### Scenario: Error display
-- **WHEN** API error occurs
-- **THEN** error message is displayed with dismiss button
+## MODIFIED Requirements
 
 ### Requirement: TodoList Component
 The TodoList component SHALL display todos grouped by status into four sections.
@@ -76,29 +58,6 @@ The TodoItem component SHALL display a single todo with a status selector, its e
 - **WHEN** delete button is clicked
 - **THEN** onDelete callback is invoked with todo ID
 
-### Requirement: AddTodo Component
-The AddTodo component SHALL provide a form to create new todos with optional priority, due date, and tags.
-
-#### Scenario: Form submission
-- **WHEN** form is submitted with non-empty title
-- **THEN** onAdd callback is invoked with title, selected priority, due date, and tags, and the form is cleared
-
-#### Scenario: Priority selection
-- **WHEN** the form is displayed
-- **THEN** a priority selector is available, defaulting to "medium"
-
-#### Scenario: Due date selection
-- **WHEN** the user picks a date in the optional date input
-- **THEN** the created todo carries that dueDate
-
-#### Scenario: Tag entry
-- **WHEN** the user types a tag name and confirms (Enter)
-- **THEN** the tag appears as a removable chip on the form and is included on submit
-
-#### Scenario: Empty validation
-- **WHEN** input is empty
-- **THEN** add button is disabled
-
 ### Requirement: Tag Filtering
 The task list SHALL support filtering by a tag selected from any task's chips, across all status sections.
 
@@ -109,19 +68,3 @@ The task list SHALL support filtering by a tag selected from any task's chips, a
 #### Scenario: Clear filter
 - **WHEN** the user clears the active tag filter
 - **THEN** all todos are shown again
-
-### Requirement: Visual Design
-The UI SHALL follow a clean, minimal design with consistent styling.
-
-#### Scenario: Brand header
-- **WHEN** app is displayed
-- **THEN** header has blue background (#4361ee) with title
-
-#### Scenario: Interactive feedback
-- **WHEN** user hovers over todo item
-- **THEN** shadow increases and delete button appears
-
-#### Scenario: Responsive layout
-- **WHEN** app is viewed
-- **THEN** content is centered with max-width of 600px
-

@@ -1,48 +1,11 @@
-# todo-components Specification
-
-## Purpose
-TBD - created by archiving change add-todo-components. Update Purpose after archive.
-## Requirements
-### Requirement: App Component
-The App component SHALL manage todo state and coordinate child components.
-
-#### Scenario: Initial load
-- **WHEN** app mounts
-- **THEN** todos are fetched from API and displayed
-
-#### Scenario: Loading state
-- **WHEN** todos are being fetched
-- **THEN** loading indicator is shown
-
-#### Scenario: Error display
-- **WHEN** API error occurs
-- **THEN** error message is displayed with dismiss button
-
-### Requirement: TodoList Component
-The TodoList component SHALL display todos grouped by status into four sections.
-
-#### Scenario: Empty state
-- **WHEN** no todos exist
-- **THEN** message "No todos yet. Add one above!" is shown
-
-#### Scenario: Grouped display
-- **WHEN** todos exist
-- **THEN** they are grouped into "To Do", "In Progress", "Review", and "Done" sections by status
-
-#### Scenario: Section counts
-- **WHEN** sections are displayed
-- **THEN** each section header shows item count
+## MODIFIED Requirements
 
 ### Requirement: TodoItem Component
-The TodoItem component SHALL display a single todo with a status selector, its enrichment metadata, and actions.
+The TodoItem component SHALL display a single todo with its enrichment metadata and actions.
 
 #### Scenario: Display todo
 - **WHEN** todo is rendered
-- **THEN** title, status dropdown, priority badge, and delete button are shown, plus due date and tag chips when set
-
-#### Scenario: Status change
-- **WHEN** the user selects a different status (To Do, In Progress, Review, Done) in the dropdown
-- **THEN** the change is saved via the API and the todo moves to the matching section
+- **THEN** title, priority badge, toggle button, and delete button are shown, plus due date and tag chips when set
 
 #### Scenario: Priority badge
 - **WHEN** a todo is rendered
@@ -72,6 +35,10 @@ The TodoItem component SHALL display a single todo with a status selector, its e
 - **WHEN** todo status is done
 - **THEN** title has strikethrough and opacity is reduced
 
+#### Scenario: Toggle action
+- **WHEN** toggle button is clicked
+- **THEN** onToggle callback is invoked with todo ID
+
 #### Scenario: Delete action
 - **WHEN** delete button is clicked
 - **THEN** onDelete callback is invoked with todo ID
@@ -99,29 +66,15 @@ The AddTodo component SHALL provide a form to create new todos with optional pri
 - **WHEN** input is empty
 - **THEN** add button is disabled
 
+## ADDED Requirements
+
 ### Requirement: Tag Filtering
-The task list SHALL support filtering by a tag selected from any task's chips, across all status sections.
+The task list SHALL support filtering by a tag selected from any task's chips.
 
 #### Scenario: Filter by chip click
 - **WHEN** the user clicks a tag chip
-- **THEN** only todos carrying that tag are shown in every status section, with an indication of the active filter
+- **THEN** only todos carrying that tag are shown, with an indication of the active filter
 
 #### Scenario: Clear filter
 - **WHEN** the user clears the active tag filter
 - **THEN** all todos are shown again
-
-### Requirement: Visual Design
-The UI SHALL follow a clean, minimal design with consistent styling.
-
-#### Scenario: Brand header
-- **WHEN** app is displayed
-- **THEN** header has blue background (#4361ee) with title
-
-#### Scenario: Interactive feedback
-- **WHEN** user hovers over todo item
-- **THEN** shadow increases and delete button appears
-
-#### Scenario: Responsive layout
-- **WHEN** app is viewed
-- **THEN** content is centered with max-width of 600px
-

@@ -6,12 +6,14 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const DATA_FILE = join(__dirname, '../data/todos.json');
 
+const ENRICHMENT_DEFAULTS = { priority: 'medium', dueDate: null, tags: [] };
+
 export const VALID_STATUSES = ['todo', 'in-progress', 'review', 'done'];
 
 function readTodos() {
   try {
     const data = readFileSync(DATA_FILE, 'utf-8');
-    return JSON.parse(data);
+    return JSON.parse(data).map(todo => ({ ...ENRICHMENT_DEFAULTS, ...todo }));
   } catch (error) {
     return [];
   }
@@ -42,6 +44,9 @@ export const todoService = {
       id: crypto.randomUUID(),
       title: todoData.title,
       status,
+      priority: todoData.priority ?? 'medium',
+      dueDate: todoData.dueDate ?? null,
+      tags: todoData.tags ?? [],
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString()
     };

@@ -1,5 +1,8 @@
 [
   {
+    "priority": "medium",
+    "dueDate": null,
+    "tags": [],
     "id": "1",
     "title": "Learn Git basics",
     "status": "todo",
@@ -7,6 +10,9 @@
     "updatedAt": "2026-08-06T11:07:24.908Z"
   },
   {
+    "priority": "medium",
+    "dueDate": null,
+    "tags": [],
     "id": "2",
     "title": "Practice merge conflicts",
     "status": "done",
@@ -14,10 +20,23 @@
     "updatedAt": "2026-08-06T11:07:23.374Z"
   },
   {
+    "priority": "medium",
+    "dueDate": null,
+    "tags": [],
     "id": "3",
     "title": "Build awesome features",
-    "status": "todo",
+    "status": "done",
     "createdAt": "2024-01-15T11:00:00.000Z",
-    "updatedAt": "2024-01-15T11:00:00.000Z"
+    "updatedAt": "2026-08-06T10:44:13.824Z"
+  },
+  {
+    "priority": "medium",
+    "dueDate": null,
+    "tags": [],
+    "id": "c9768610-ca1d-4ca5-8d1d-ff274545e952",
+    "title": "amigos",
+    "status": "todo",
+    "createdAt": "2026-08-06T10:44:22.223Z",
+    "updatedAt": "2026-08-09T08:04:50.366Z"
   }
 ]

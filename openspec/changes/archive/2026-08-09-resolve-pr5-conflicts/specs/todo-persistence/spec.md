@@ -1,8 +1,5 @@
-# todo-persistence Specification
+## MODIFIED Requirements
 
-## Purpose
-TBD - created by archiving change add-todo-persistence. Update Purpose after archive.
-## Requirements
 ### Requirement: Todo Data Model
 Each todo SHALL have an id, title, status, priority, dueDate, tags, createdAt, and updatedAt fields. The status SHALL be one of todo, in-progress, review, or done, and the service SHALL reject any other value.
 
@@ -29,42 +26,3 @@ Each todo SHALL have an id, title, status, priority, dueDate, tags, createdAt, a
 #### Scenario: Legacy records
 - **WHEN** todos.json contains records saved before the enrichment fields existed
 - **THEN** they are returned with defaults applied (priority "medium", dueDate null, tags []) without modifying the stored file until the next write
-
-### Requirement: File-Based Storage
-The service SHALL persist todos to a JSON file.
-
-#### Scenario: Read todos
-- **WHEN** getAll is called
-- **THEN** all todos from todos.json are returned as an array
-
-#### Scenario: Persist changes
-- **WHEN** a todo is created, updated, or deleted
-- **THEN** changes are written to todos.json immediately
-
-#### Scenario: Handle missing file
-- **WHEN** todos.json does not exist
-- **THEN** an empty array is returned
-
-### Requirement: CRUD Operations
-The service SHALL provide methods for create, read, update, and delete operations.
-
-#### Scenario: Create todo
-- **WHEN** create is called with title
-- **THEN** a new todo with generated UUID is added and returned
-
-#### Scenario: Get by ID
-- **WHEN** getById is called with valid ID
-- **THEN** the matching todo is returned
-
-#### Scenario: Update todo
-- **WHEN** update is called with ID and changes
-- **THEN** the todo is updated and updatedAt is refreshed
-
-#### Scenario: Delete todo
-- **WHEN** delete is called with valid ID
-- **THEN** the todo is removed and true is returned
-
-#### Scenario: Delete non-existent
-- **WHEN** delete is called with invalid ID
-- **THEN** false is returned
-

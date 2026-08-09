@@ -10,6 +10,7 @@ function TodosPage() {
   const [todos, setTodos] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [filterTag, setFilterTag] = useState(null);
 
   useEffect(() => {
     loadTodos();
@@ -28,9 +29,9 @@ function TodosPage() {
     }
   };
 
-  const handleAdd = async (title) => {
+  const handleAdd = async ({ title, priority, dueDate, tags }) => {
     try {
-      const newTodo = await api.todos.create(title);
+      const newTodo = await api.todos.create({ title, priority, dueDate, tags });
       setTodos([...todos, newTodo]);
     } catch (err) {
       setError(err.message);
@@ -41,6 +42,15 @@ function TodosPage() {
     try {
       const updated = await api.todos.update(id, { status: newStatus });
       setTodos(todos.map((t) => (t.id === id ? updated : t)));
+    } catch (err) {
+      setError(err.message);
+    }
+  };
+
+  const handleUpdate = async (id, updates) => {
+    try {
+      const updated = await api.todos.update(id, updates);
+      setTodos(todos.map(t => t.id === id ? updated : t));
     } catch (err) {
       setError(err.message);
     }
@@ -76,13 +86,22 @@ function TodosPage() {
           </div>
         )}
 
+        {filterTag && (
+          <div className="active-filter">
+            Filtering by: <strong>{filterTag}</strong>
+            <button onClick={() => setFilterTag(null)} className="clear-filter-btn">Clear</button>
+          </div>
+        )}
+
         {loading ? (
           <div className="loading">Loading...</div>
         ) : (
           <TodoList
-            todos={todos}
+            todos={filterTag ? todos.filter(t => (t.tags || []).includes(filterTag)) : todos}
             onStatusChange={handleStatusChange}
             onDelete={handleDelete}
+            onUpdate={handleUpdate}
+            onTagClick={(tag) => setFilterTag(tag)}
           />
         )}
       </main>

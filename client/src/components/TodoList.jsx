@@ -8,7 +8,7 @@ const SECTIONS = [
   { status: 'done', title: 'Done' },
 ];
 
-function TodoList({ todos, onStatusChange, onDelete }) {
+function TodoList({ todos, onStatusChange, onDelete, onUpdate, onTagClick }) {
   if (todos.length === 0) {
     return (
       <div className="empty-state">
@@ -32,6 +32,8 @@ function TodoList({ todos, onStatusChange, onDelete }) {
                 todo={todo}
                 onStatusChange={onStatusChange}
                 onDelete={onDelete}
+                onUpdate={onUpdate}
+                onTagClick={onTagClick}
               />
             ))}
           </section>
