@@ -19,7 +19,7 @@ The App component SHALL manage todo state and coordinate child components.
 - **THEN** error message is displayed with dismiss button
 
 ### Requirement: TodoList Component
-The TodoList component SHALL display todos grouped by status.
+The TodoList component SHALL display todos grouped by status into four sections.
 
 #### Scenario: Empty state
 - **WHEN** no todos exist
@@ -27,18 +27,22 @@ The TodoList component SHALL display todos grouped by status.
 
 #### Scenario: Grouped display
 - **WHEN** todos exist
-- **THEN** they are grouped into "To Do" and "Done" sections
+- **THEN** they are grouped into "To Do", "In Progress", "Review", and "Done" sections by status
 
 #### Scenario: Section counts
 - **WHEN** sections are displayed
 - **THEN** each section header shows item count
 
 ### Requirement: TodoItem Component
-The TodoItem component SHALL display a single todo with its enrichment metadata and actions.
+The TodoItem component SHALL display a single todo with a status selector, its enrichment metadata, and actions.
 
 #### Scenario: Display todo
 - **WHEN** todo is rendered
-- **THEN** title, priority badge, toggle button, and delete button are shown, plus due date and tag chips when set
+- **THEN** title, status dropdown, priority badge, and delete button are shown, plus due date and tag chips when set
+
+#### Scenario: Status change
+- **WHEN** the user selects a different status (To Do, In Progress, Review, Done) in the dropdown
+- **THEN** the change is saved via the API and the todo moves to the matching section
 
 #### Scenario: Priority badge
 - **WHEN** a todo is rendered
@@ -68,10 +72,6 @@ The TodoItem component SHALL display a single todo with its enrichment metadata 
 - **WHEN** todo status is done
 - **THEN** title has strikethrough and opacity is reduced
 
-#### Scenario: Toggle action
-- **WHEN** toggle button is clicked
-- **THEN** onToggle callback is invoked with todo ID
-
 #### Scenario: Delete action
 - **WHEN** delete button is clicked
 - **THEN** onDelete callback is invoked with todo ID
@@ -100,11 +100,11 @@ The AddTodo component SHALL provide a form to create new todos with optional pri
 - **THEN** add button is disabled
 
 ### Requirement: Tag Filtering
-The task list SHALL support filtering by a tag selected from any task's chips.
+The task list SHALL support filtering by a tag selected from any task's chips, across all status sections.
 
 #### Scenario: Filter by chip click
 - **WHEN** the user clicks a tag chip
-- **THEN** only todos carrying that tag are shown, with an indication of the active filter
+- **THEN** only todos carrying that tag are shown in every status section, with an indication of the active filter
 
 #### Scenario: Clear filter
 - **WHEN** the user clears the active tag filter

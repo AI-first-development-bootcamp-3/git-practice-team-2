@@ -22,11 +22,19 @@ The API SHALL provide an endpoint to get a single todo by ID.
 - **THEN** 404 status with error message is returned
 
 ### Requirement: Create Todo Endpoint
-The API SHALL provide an endpoint to create a new todo, accepting optional priority, dueDate, and tags.
+The API SHALL provide an endpoint to create a new todo, accepting optional status, priority, dueDate, and tags.
 
 #### Scenario: Create with valid title
 - **WHEN** POST /api/todos is called with title in body
-- **THEN** new todo is created and returned with 201 status, with priority "medium", dueDate null, and tags []
+- **THEN** new todo is created and returned with 201 status, with status "todo", priority "medium", dueDate null, and tags []
+
+#### Scenario: Create with explicit status
+- **WHEN** POST /api/todos is called with title and a status of todo, in-progress, review, or done
+- **THEN** the todo is created with that status and returned with 201 status
+
+#### Scenario: Create with invalid status
+- **WHEN** POST /api/todos is called with a status outside todo|in-progress|review|done
+- **THEN** 400 status with error message is returned
 
 #### Scenario: Create with enrichment fields
 - **WHEN** POST /api/todos is called with title, priority, dueDate, and tags
@@ -53,23 +61,35 @@ The API SHALL provide an endpoint to create a new todo, accepting optional prior
 - **THEN** the stored tags are trimmed and deduplicated
 
 ### Requirement: Update Todo Endpoint
-The API SHALL provide an endpoint to update an existing todo, validating priority, dueDate, and tags when present.
+The API SHALL provide an endpoint to update an existing todo, validating status, priority, dueDate, and tags when present. Existence SHALL be checked before body validation, so a non-existent id always yields 404 regardless of body validity.
 
 #### Scenario: Update existing todo
 - **WHEN** PUT /api/todos/:id is called with updates
 - **THEN** the todo is updated and returned
+
+#### Scenario: Update status
+- **WHEN** PUT /api/todos/:id is called with a status of todo, in-progress, review, or done
+- **THEN** the todo's status is updated and persisted
+
+#### Scenario: Update with invalid status
+- **WHEN** PUT /api/todos/:id is called for an existing todo with a status outside todo|in-progress|review|done
+- **THEN** 400 status with error message is returned and the todo is unchanged
 
 #### Scenario: Update enrichment fields
 - **WHEN** PUT /api/todos/:id is called with priority, dueDate, or tags
 - **THEN** the provided fields are validated, updated, and persisted
 
 #### Scenario: Update with invalid enrichment values
-- **WHEN** PUT /api/todos/:id is called with an invalid priority, dueDate format, or tags value
+- **WHEN** PUT /api/todos/:id is called for an existing todo with an invalid priority, dueDate format, or tags value
 - **THEN** 400 status with error message is returned and the todo is unchanged
 
 #### Scenario: Update non-existent todo
 - **WHEN** PUT /api/todos/:id is called with invalid ID
 - **THEN** 404 status with error message is returned
+
+#### Scenario: 404 takes precedence over validation errors
+- **WHEN** PUT /api/todos/:id is called with a non-existent id and an invalid status or invalid enrichment values in the body
+- **THEN** 404 status is returned, not 400
 
 ### Requirement: Delete Todo Endpoint
 The API SHALL provide an endpoint to delete a todo.
