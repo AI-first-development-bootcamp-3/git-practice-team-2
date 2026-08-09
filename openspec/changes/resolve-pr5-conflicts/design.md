@@ -41,7 +41,12 @@ See proposal.md — Why. `enrichment-backend` and `development` diverged: develo
 
 ## Migration Plan
 
+Checkpointed flow — the user reviews and approves at each gate before work continues:
+
 1. On `enrichment-backend`, `git fetch` then `git merge origin/development`.
-2. Resolve the 8 files per Decisions 2–4, commit the merge.
-3. Verify (server API checks + browser walkthrough), push; PR #5 refreshes automatically.
-4. Rollback: before push, `git merge --abort` or `git reset --hard origin/enrichment-backend`; after push, revert the merge commit.
+2. Resolve the 4 server files per Decisions 3–4, then **checkpoint**: stage them and present the resolved diff for user review.
+3. Resolve the 5 client files per Decision 2, then **checkpoint**: stage them and present the resolved diff for user review.
+4. **Commit gate**: show the full staged summary; on user approval, create the merge commit. (Git constraint: a conflicted merge concludes in exactly one commit — per-file commits are impossible mid-merge, which is why control comes from staged-diff checkpoints instead.)
+5. Verify (server API checks + browser walkthrough). Each defect fix lands as its own separate commit — never amending the merge commit — so fixes are individually reviewable and revertable.
+6. **Push gate**: show all unpushed commits; on user approval, push. PR #5 refreshes automatically.
+7. Rollback options by stage: during resolution, `git checkout --merge -- <file>` re-conflicts one file or `git merge --abort` restarts; after commit but before push, `git reset --hard origin/enrichment-backend`; after push, `git revert -m 1 <merge-commit>` (and plain `git revert` for any fix commit).
